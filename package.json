@@ -56,7 +56,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "gulp test",
-    "build": "gulp heroku:production",
+    "build": "gulp heroku:production"
   },
   "repository": {
     "type": "git",
