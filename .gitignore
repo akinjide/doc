@@ -1,0 +1,8 @@
+# OSX Stuff
+.DS_Store
+
+# Dependency directory
+node_modules
+
+# Environment variables
+.env
