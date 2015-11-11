@@ -1,2 +1,3 @@
 javascript:
   config_file: .javascript-style.json
+  fail_on_violations: true
