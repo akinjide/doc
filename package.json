@@ -2,7 +2,7 @@
   "name": "doc",
   "version": "1.0.0",
   "description": "A front end for the document management system api, built using Angular JS and Angular Material Design.",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "directories": {
     "test": "tests"
   },
@@ -20,7 +20,6 @@
     "morgan": "^1.6.1"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
     "chance": "^0.8.0",
     "chromedriver": "^2.19.0",
     "frisby": "^0.8.5",
@@ -49,10 +48,9 @@
     "karma-jasmine": "^0.3.6",
     "protractor": "^2.5.1",
     "selenium-server-standalone-jar": "^2.47.1",
-    "stringify": "^3.1.0",
     "superagent": "^1.4.0",
     "vinyl-source-stream": "^1.1.0"
-  },  
+  },
   "engines": {
     "node": ">=0.12.5"
   },

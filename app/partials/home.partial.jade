@@ -47,7 +47,7 @@ div(class="layout-row" id="doc__home__wrapper_bg" ng-controller="userController"
               label Password
               input(ng-model="params.password" type="password" name="password" ng-required="true" ng-minlength="5")
               div(ng-show="signupForm.password.$error.minlength" role="alert")
-                div(ng-message="required") Password too short, must be more than 5 characters long.
+                div(ng-message="required" class="error") Password too short, must be more than 5 characters long.
             section(layout-sm="column" layout-align="center center" layout-wrap)
               md-button(class="doc__in" ng-disabled="signupForm.$error.required") SIGN UP
               p By clicking Sign Up, you agree to our #[b Terms] and that you have read our #[b Data Policy], including our #[b Cookie Use].

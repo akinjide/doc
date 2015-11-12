@@ -9,7 +9,7 @@ div(layout="row" ng-cloak ng-controller="docController")
           p #[a(ui-sref="documents" class="active") View all document]
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile") Profile]
-          p(ng-click="logout()" style="cursor : pointer;") Sign out
+          p(ng-click="logout()" class="doc__signout__button") Sign out
   section(layout="column" flex)
     md-content(layout-padding)
       div(layout="column" layout-fill layout-align="top center")
