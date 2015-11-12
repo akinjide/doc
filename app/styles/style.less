@@ -1,0 +1,312 @@
+@import "mixins";
+
+@font-face {
+  font-family: "Open Sans";
+  src: url('../fonts/Open_Sans/OpenSans-Regular.ttf');
+}
+
+@main-color: rgb(0, 0, 0);
+@base-color: #fff;
+@color-7: #777777;
+@color-b1: #90BAE8;
+@color-r1: #F58080;
+@accent-color: rgb(73, 180, 169);
+@font-family: 'Helvetica Neue', sans-serif, Arial, 'Open Sans';
+@text-center: center;
+@text-right: right;
+@main-size: 12px;
+@base-weight: 100;
+@auto-margin: 0 auto;
+@pa: absolute;
+@top: 0;
+@bottom: 0;
+@main-per: 100%;
+
+h1, h5, h4 {
+  color: @color-7;
+  font-weight: lighter;
+  text-align: @text-center;
+}
+
+// PROFILE
+.doc__sidebar__header {
+  background-color: @main-color;
+  img {
+    margin-top: 56px;
+    margin-bottom: 26px;
+    padding-left: 70px;
+    width: auto;
+    height: @main-size + 50px;
+  }
+}
+
+.md-sidenav.md-locked-open {
+  width: 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+}
+
+md-sidenav {
+  background-color: @main-color;
+}
+
+.doc__sidebar__close {
+  margin-left: 66px;
+  .md-button {
+    margin-left: -6px;
+    color: @accent-color;
+  }
+}
+
+.doc__sidebar__content {
+  background-color: @main-color;
+  color: @base-color;
+  font-family: @font-family;
+  font-size: @main-size;
+  font-weight: @base-weight + 400;
+  p {
+    a {
+      text-decoration: none;
+      color: @base-color;
+      &:hover {
+        color: @color-7;
+      }
+    }
+  }
+}
+
+.active {
+  color: @color-7 !important;
+  font-weight: @base-weight + 500;
+}
+
+.doc__sidebar__button.md-button.md-fab {
+  color: @base-color;
+  background-color: @main-color;
+  padding: 4px;
+  i.fa {
+    font-size: @main-size + 11px;
+  }
+}
+
+.doc__sidebar__button.md-button.md-fab:not([disabled]).md-focused {
+  color: @base-color;
+  background-color: @main-color;
+}
+
+.doc__sidebar__button.md-button.md-fab:not([disabled]):hover {
+  color: @base-color;
+  background-color: @main-color;
+}
+
+.doc__sidebar__form {
+  padding-left: @main-size + 28px;
+  padding-right: @main-size + 8px;
+  padding-bottom: @main-size + 28px;
+  .md-long-text {
+    h3 {
+      font-family: @font-family;
+    }
+    p {
+      font-size: @main-size;
+      line-height: 1.6em;
+      //font-family: @font-family;
+    }
+    section {
+      p {
+        font-size: @main-size + 2px;
+      }
+    }
+  }
+}
+
+.doc__profile {
+  .doc__sidebar__form {
+    padding: @main-size - 6px;
+    margin-top: @main-size +  83px;
+    form {
+      h1 {
+        color: @color-7;
+        font-weight: lighter;
+        text-align: @text-center;
+      }
+      p {
+        font-size: @main-size - 2px;
+        font-weight: @base-weight + 300;
+        text-align: @text-center;
+      }
+      .md-button, .md-button .md-ripple-container {
+        .rounded-corners(22px);
+      }
+      .doc__delete {
+        color: @color-r1;
+        font-size: @main-size;
+      }
+      .doc__edit {
+        color: @color-b1;
+        font-size: @main-size;
+      }
+    }
+  }
+}
+
+// ALL DOCUMENTS
+.doc__home__form {
+  font-size: @main-size;
+  md-input-container {
+    input {
+      width: 150px;
+    }
+  }
+}
+md-toolbar:not(.md-menu-toolbar).md-accent {
+  background-color: rgba(0, 0, 0, 0.78);
+}
+
+md-toolbar {
+  .doc__home__container {
+    width: 80%;
+    margin: @auto-margin;
+    padding-top: @main-size - 2px;
+    .doc__home__logo {
+      padding: @main-size - 4px;
+      img {
+        width: auto;
+        height: @main-size + 24px;
+      }
+    }
+    .doc__home__form {
+      md-input-container label {
+        color: rgba(216, 216, 216, 0.61);
+      }
+      input.md-input {
+        border-color: @base-color;
+        color: @base-color;
+      }
+      .md-input-focused label {
+        color: @base-color;
+      }
+      .md-button, .md-button .md-ripple-container {
+        .rounded-corners(22px);
+        width: auto;
+        height: @main-size + 8px;
+        margin-top: @main-size;
+        font-size: @main-size;
+      }
+    }
+  }
+}
+
+#doc__home__wrapper_bg {
+  background: url("../images/bg.jpg");
+  background-size: cover;
+  position: @pa;
+  top: @top;
+  bottom: @bottom;
+  height: @main-per;
+  width: @main-per;
+  color: @base-color; 
+  .doc__overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: @pa;
+    top: @top;
+    bottom: @bottom;
+    height: @main-per;
+    width: @main-per;
+  }
+  section .doc__sidebar__form {
+    margin-top: @main-size + 24px;
+    padding: @main-size + 23px;
+    background-color: rgba(255, 255, 255, 0.92);
+    form {
+      font-size: @main-size;
+      p {
+        font-size: @main-size - 2px;
+        font-weight: @base-weight + 300;
+        text-align: @text-center;
+      }
+      md-divider {
+        margin: 20px;
+      }
+      section {
+        text-align: @text-center;
+      }
+    }
+  }
+}
+
+.doc__in, .doc__save {
+  .rounded-corners(22px);
+  font-size: @main-size;
+}
+
+.doc__delete {
+  color: @color-r1;
+  font-size: @main-size;
+  .rounded-corners(22px);
+}
+
+// Error Page
+#error-page { 
+  width: @main-size + 483px;
+  margin: 0 auto;
+  margin-top: @main-size + 8px;
+  #back_button  {
+    display: block;
+    text-align: @text-right;
+    font-family: georgia, 'times new roman', 'Open Sans';
+    font-style: italic;
+    color: @main-color;
+    text-decoration: underline;
+  }
+  #error-message {
+    margin-top: @main-size + 68px;
+    font-size: @main-size + 60px;
+    font-family: monaco;
+    padding-bottom: @main-size + 213px;
+    background: url(../images/error_message.jpg) bottom center no-repeat;
+    width: 100%;
+  }
+}
+
+// ABOUT
+.doc__about {
+  margin-top: @main-size + 68px;
+  font-size: @main-size + 10px;
+  h1, h5 {
+    color: @base-color;
+    font-weight: 400;
+    text-align: @text-center;
+  }
+  h5 {
+    font-weight: lighter;
+    text-align: @text-center;
+  }
+}
+
+// Password Error
+.error {
+  font-weight: bolder;
+  color: @color-r1;
+}
+
+// NO JS
+.nojs {
+  padding: 2px;
+  padding-left: 6px;
+  margin-bottom: 5px;
+  background: #ff0000;
+  color: #ffffff;
+  font-size: 15px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+}
+
+// fab
+md-fab-trigger.align-with-text {
+  margin-left: -@main-size + 5px; 
+}
+
+.addDocForm {
+  font-size: @main-size + 2px;
+}
