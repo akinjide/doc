@@ -41,7 +41,7 @@ app.use(express.static(__dirname + '/public'));
 // render jade view
 app.set('views', './server/views');
 app.set('view engine', 'jade');
-app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1); // trust first proxy
 // use body Parser so we can get info from POST and/or other URL parameters
 app.use(bodyParser.urlencoded({ extended : true }));
 // support json encoded bodies
