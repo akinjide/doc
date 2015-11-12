@@ -43,5 +43,5 @@ module.exports = {
       // if there is no token, return error
       return res.json({ statusCode : 499, status : 'Token required', message : 'not authorized, please login' });
     }
-  };
+  }
 };

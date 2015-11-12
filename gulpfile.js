@@ -135,7 +135,6 @@ gulp.task('e2e:test', function(cb) {
 gulp.task('watch', function() {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
-  gulp
   // gulp.watch(paths.scripts, []);
 });
 
