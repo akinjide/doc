@@ -1,0 +1,43 @@
+div(layout="row" ng-cloak ng-controller="userController")
+  md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-close="$mdMedia('gt-md')")
+    div.doc__sidebar__header
+      img(src="../images/logo.png")
+    md-content(layout-padding ng-controller="LeftCtrl" flex class="doc__sidebar__content")
+      div.doc__sidebar__close
+        md-button(ng-click="close()" class="md-primary") Close Sidenav Left
+        md-content(show-gt-md class="doc__sidebar__content")
+          p #[a(ui-sref="documents" class="active") View all document]
+          p #[a(ui-sref="adddocument") Add document]
+          p #[a(ui-sref="profile") Profile]
+          p(ng-click="logout()" style="cursor : pointer;") Sign out
+  section(layout="column" flex ng-controller="docController")
+    md-content(layout-padding)
+      div(layout="column" layout-fill layout-align="top center")
+        md-button(ng-click="toggleLeft()" class="md-fab doc__sidebar__button" aria-label="Menu" class="md-primary")
+          i.fa.fa-bars
+      div(flex)
+    md-content(layout="column" flex layout-padding class="md-inline-form doc__sidebar__form")
+      div
+        md-list(layout="column" layout-padding ng-repeat="document in userDocuments")
+          div(class="md-3-line md-long-text")
+            h3(ng-bind="document.title")
+            p {{ document.content }}
+
+            section(layout="row" layout-sm="column" layout-wrap)
+              p(style="padding-right: 6px;") #[small #[b createdAt:] {{ document.dateCreated | date:'medium' }}]
+              p #[small #[b lastModified:] {{ document.lastModified | date:'medium' }}]
+            md-fab-speed-dial(md-open="false" md-direction="right" class="md-scale")
+              md-fab-trigger.align-with-text
+                md-button(aria-label="Menu" class="md-fab md-primary")
+                  i.fa.fa-bars
+              md-fab-actions
+                md-button(aria-label="View" class="md-fab md-raised md-mini")
+                  i.fa.fa-eye
+                  md-tooltip View
+                md-button(aria-label="Edit" class="md-fab md-raised md-mini" ng-click="edit(document._id)")
+                  i.fa.fa-pencil
+                  md-tooltip Edit
+                md-button(aria-label="Delete" class="md-fab md-raised md-mini" ng-click="deleteDocument(document._id)")
+                  i.fa.fa-trash-o
+                  md-tooltip Delete
+          md-divider(style="margin: 12px 0px")

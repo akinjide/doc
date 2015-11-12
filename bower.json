@@ -1,0 +1,27 @@
+{
+  "name": "doc",
+  "description": "A front end for the document management system api, built using Angular JS and Angular Material Design.",
+  "main": "gulpfile.js",
+  "authors": [
+    "andela-abankole <akinjide.bankole@andela.co>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.7",
+    "angular-loading-bar": "~0.8.0",
+    "angular-material": "~0.11.4",
+    "angular-ui-router": "~0.2.15",
+    "sweetalert": "~1.1.3",
+    "angular-mocks": "~1.4.7"
+  }
+}

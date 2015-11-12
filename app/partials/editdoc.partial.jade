@@ -1,0 +1,29 @@
+div(layout="row" ng-cloak ng-controller="docController")
+  md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-close="$mdMedia('gt-md')")
+    div.doc__sidebar__header
+      img(src="../images/logo.png")
+    md-content(layout-padding ng-controller="LeftCtrl" flex class="doc__sidebar__content")
+      div.doc__sidebar__close
+        md-button(ng-click="close()" class="md-primary") Close Sidenav Left
+        md-content(show-gt-md class="doc__sidebar__content")
+          p #[a(ui-sref="documents" class="active") View all document]
+          p #[a(ui-sref="adddocument") Add document]
+          p #[a(ui-sref="profile") Profile]
+          p(ng-click="logout()" style="cursor : pointer;") Sign out
+  section(layout="column" flex)
+    md-content(layout-padding)
+      div(layout="column" layout-fill layout-align="top center")
+        md-button(ng-click="toggleLeft()" class="md-fab doc__sidebar__button" aria-label="Menu" class="md-primary")
+          i.fa.fa-bars
+      div(flex)
+    md-content(layout-padding flex class="md-inline-form doc__sidebar__form")
+      form(name="userForm")
+        md-input-container
+          label Title
+          input(ng-model="param.title" type="text")
+        md-input-container
+          label Content
+          textarea(ng-model="param.content" rows="6" column="1")
+        section(layout="row" layout-sm="column" layout-align="center center" layout-wrap)
+          md-button(class="doc__delete" ui-sref="documents") DISCARD
+          md-button(class="doc__save" ng-click="updateDocument(param)") SAVE
