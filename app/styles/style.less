@@ -271,15 +271,19 @@ md-toolbar {
 
 // ABOUT
 .doc__about {
-  margin-top: @main-size + 68px;
-  font-size: @main-size + 10px;
-  h1, h5 {
-    color: @base-color;
+  margin-top: @main-size + 98px;
+  font-family: @font-family;
+  h1 {
+    color: @base-color !important;
+    font-size: @main-size + 16px;
     font-weight: 400;
     text-align: @text-center;
   }
   h5 {
-    font-weight: lighter;
+    color: @base-color !important;
+    line-height: 1.2em;
+    font-size: @main-size + 4px;
+    font-weight: 300;
     text-align: @text-center;
   }
 }
@@ -309,4 +313,9 @@ md-fab-trigger.align-with-text {
 
 .addDocForm {
   font-size: @main-size + 2px;
+}
+
+.doc__signout__button {
+  cursor: pointer;
+  outline: none;
 }
