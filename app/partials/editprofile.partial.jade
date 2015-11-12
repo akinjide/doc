@@ -9,14 +9,12 @@ div(layout="row" ng-cloak ng-controller="userController")
           p #[a(ui-sref="documents") View all document]
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile" class="active") Profile]
-          p(ng-click="logout()" style="cursor : pointer;") Sign out
+          p(ng-click="logout()" class="doc__signout__button") Sign out
   section(layout="row" flex class="doc__profile")
     md-content(flex="15" flex-sm="35" flex-gt-md="30" layout-padding)
       div(layout="column" layout-fill layout-align="top center")
         md-button(ng-click="toggleLeft()" class="md-fab doc__sidebar__button" aria-label="Menu" class="md-primary")
           i.fa.fa-bars
-        md-button(class="md-fab doc__sidebar__button" aria-label="Back" ui-sref="profile")
-          i.fa.fa-chevron-left
       div(flex)
     div(flex-offset-md="20")
     md-content(layout-padding flex-sm="60" flex-md="45" flex-gt-md="40" class="md-inline-form doc__sidebar__form")
@@ -37,5 +35,6 @@ div(layout="row" ng-cloak ng-controller="userController")
             label Email
             input(ng-model="vm.email" type="email")
         section(class="doc__profile__section" layout="row" layout-sm="column" layout-align="center center" layout-wrap)
+          md-button(class="doc__delete" ui-sref="profile") DISCARD
           md-button(class="doc__save" ng-click="updateUser(vm)") SAVE
     md-content(flex flex-sm="5")

@@ -1,5 +1,5 @@
-div(ng-controller="userController")
-  div(layout="row" ng-cloak ng-controller="docController")
+div(ng-controller="docController")
+  div(layout="row" ng-cloak ng-controller="userController")
   md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-close="$mdMedia('gt-md')")
     div.doc__sidebar__header
       img(src="../images/logo.png")
@@ -10,7 +10,7 @@ div(ng-controller="userController")
           p #[a(ui-sref="documents") View all document]
           p #[a(ui-sref="adddocument" class="active") Add document]
           p #[a(ui-sref="profile") Profile]
-          p(ng-click="logout()" style="cursor : pointer;") Sign out
+          p(ng-click="logout()" class="doc__signout__button") Sign out
   section(layout="column" flex)
     md-content(layout-padding)
       div(layout="column" layout-fill layout-align="top center")
