@@ -1,0 +1,28 @@
+div(class="layout-row" id="doc__home__wrapper_bg" ng-controller="userController" hide-gt-sm)
+  div.doc__overlay
+    div(tabindex="-1" role="main" class="layout-column flex")
+      md-toolbar.md-whiteframe-glow-z1.site-content-toolbar.md-accent
+        div.fill-height.layout-row.flex.doc__home__container
+          div.md-toolbar-item.md-breadcrumb.md-headline.doc__home__logo
+            img(src="../images/logo.png")
+          span.flex
+      section(layout="row")
+        div(flex)
+        md-content(flex="90" layout-padding class="md-inline-form doc__sidebar__form" style="margin-top: 80px;")
+          div.md-toolbar-item
+            form(ng-submit="login(params)" name="userForm")
+              h1 Please sign in
+              div(layout layout-sm="column")
+                md-input-container(flex)
+                  label Username (required)
+                  input(ng-model="params.username" type="text" name="username" ng-required="true")
+                md-input-container(flex)
+                  label Password
+                  input(ng-model="params.password" type="password")
+                section(layout-sm="column" layout-align="center center" layout-wrap)
+                  md-button(class="doc__in" ng-disabled="userForm.username.$error.required") SIGN IN
+              md-divider
+              h4 Don't have an account yet?
+              section(layout-sm="column" layout-align="center center" layout-wrap)
+                md-button(class="doc__in" ui-sref="home") SIGN UP
+        div(flex)
