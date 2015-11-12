@@ -169,7 +169,7 @@ gulp.task('watch:fend', function() {
 
 // 'e2e:test', 'fend:test'
 gulp.task('build', ['bower', 'jade', 'less', 'static-files', 'images', 'minify']);
-gulp.task('test', ['bend:test']);
+gulp.task('test', ['test:bend']);
 gulp.task('concat:development', ['concat:controllers', 'concat:services']);
 gulp.task('heroku:production', ['build']);
 gulp.task('production', ['nodemon', 'build']);
