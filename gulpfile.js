@@ -22,7 +22,7 @@ var gulp = require('gulp'),
       jade    : ['!app/shared/**', 'app/**/*.jade'],
       scripts : 'app/scripts/**/*.js',
       images  : 'app/images/**/*',
-      styles  : 'app/styles/*.+(less|css|min.css)',
+      styles  : ['app/styles/*.+(less|css|min.css)', '!app/styles/mixin.less'],
       lint    : [
         './index.js', 
         './app/**/*.js', 
@@ -34,7 +34,8 @@ var gulp = require('gulp'),
         '!app/images/**/*',
         'app/**/*.*',
         'app/scripts/**/*.*'
-      ]
+      ],
+      unitTests : ['tests/unit/**/*.spec.js', 'public/scripts/**/*.js']
     };
 
 gulp.task('fend:test', function(done) {
@@ -72,6 +73,8 @@ gulp.task('less', function() {
     .pipe(less({
       paths : [path.join(__dirname, './app/styles')]
     }))
+    .pipe(minifyCss())
+    .pipe(rename("style.min.css"))
     .pipe(gulp.dest('./public/styles'));
 });
 
@@ -132,8 +135,14 @@ gulp.task('e2e:test', function(cb) {
 gulp.task('watch', function() {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
+  gulp
   // gulp.watch(paths.scripts, []);
 });
+
+gulp.task('watch:fend', function() {
+  return gulp.watch(paths.unitTests, ['fend:test'])
+})
+
 // 'e2e:test', 'fend:test'
 gulp.task('build', ['jade', 'less', 'static-files', 'images']);
 gulp.task('test', ['bend:test']);
