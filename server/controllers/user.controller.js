@@ -36,7 +36,7 @@ module.exports = {
 
           user.save(function(err, response) {
             if (err) {
-              return res.json({ statusCode : 409, status : 'Conflict', response : err });
+              return res.json({ statusCode : 409, statusMessage : 'please check all fields, including password field', status : 'Conflict', response : err });
             }
             else {
               return res.json({ statusCode : 201, status : 'Created', statusMessage : 'user save successful', response : response });
@@ -63,12 +63,12 @@ module.exports = {
           return res.json({ statusCode : 500, status : 'Internal Server Error', statusMessage: 'an error occured, please try again', response : err });
 
         if(!user) {
-          return res.json({ statusCode : 400, status : 'Bad Request', statusMessage : 'authentication failed, user not found' });
+          return res.json({ statusCode : 400, status : 'Bad Request', statusMessage : 'sign in failed, user not found' });
         }
         else if (user) {
           var validatePassword = user.comparePassword(req.body.password);
           if (!(validatePassword)) {
-            return res.json({ statusCode : 400, status : 'Bad Request', statusMessage : 'authentication failed, incorrect password' });
+            return res.json({ statusCode : 400, status : 'Bad Request', statusMessage : 'sign in failed, incorrect password' });
           }
           else {
             var d = new Date();
@@ -124,7 +124,6 @@ module.exports = {
         return res.json({ statusCode : 500, status : 'Internal Server Error', statusMessage: 'an error occured, please try again', response : err });
       }
       else {
-        console.log(req.session.userID)
         return res.json({ statusCode : 200, status : 'OK', response : response });
       }
     });
@@ -141,7 +140,6 @@ module.exports = {
     var query = { _id : req.params.id };
 
     User.findById(query, function(err, response) {
-      console.log(response);
       if (err) {
         return res.json({ statusCode : 500, status : 'Internal Server Error', statusMessage: 'an error occured, please check and try again', response : err });
       }
@@ -206,7 +204,6 @@ module.exports = {
    */
   getUserDocument : function(req, res) {
     var query = { _ownerId : req.params.id };
-    console.log(req.params)
 
     Document.find(query)
       .populate('_ownerId')
