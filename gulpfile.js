@@ -1,6 +1,7 @@
-var gulp = require('gulp'),
-    less = require('gulp-less'),
-    jade = require('gulp-jade'),
+var gulp  = require('gulp'),
+    less  = require('gulp-less'),
+    jade  = require('gulp-jade'),
+    bower = require('gulp-bower'),
     minifyCss  = require('gulp-minify-css'),
     ngAnnotate = require('gulp-ng-annotate'),
     rename  = require('gulp-rename'),
@@ -13,7 +14,6 @@ var gulp = require('gulp'),
     imagemin   = require('gulp-imagemin'),
     protractor = require('gulp-protractor').protractor,
     jasmine    = require('gulp-jasmine-node'),
-    browserify = require('browserify'),
     Server   = require('karma').Server,
     mocha   = require('gulp-mocha'),
     source  = require('vinyl-source-stream'),
@@ -38,14 +38,14 @@ var gulp = require('gulp'),
       unitTests : ['tests/unit/**/*.spec.js', 'public/scripts/**/*.js']
     };
 
-gulp.task('fend:test', function(done) {
+gulp.task('test:fend', function(done) {
   new Server({
     configFile : __dirname + '/karma.conf.js',
     singleRun : true
   }, done).start()
 });
 
-gulp.task('bend:test', function() {
+gulp.task('test:bend', function() {
   return gulp.src('./tests/server/*.spec.js')
     .pipe(mocha({
       reporter : 'spec',
@@ -73,8 +73,9 @@ gulp.task('less', function() {
     .pipe(less({
       paths : [path.join(__dirname, './app/styles')]
     }))
+    .pipe(concat('style'))
     .pipe(minifyCss())
-    .pipe(rename("style.min.css"))
+    .pipe(rename("doc_style.min.css"))
     .pipe(gulp.dest('./public/styles'));
 });
 
@@ -100,9 +101,33 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
+gulp.task('minify', function() {
+  gulp.src(paths.scripts)
+    .pipe(concat('doc_script.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./public/scripts/min/'))
+});
+
+gulp.task('concat:controllers', function() {
+  gulp.src('app/scripts/controllers/*.js')
+    .pipe(concat('controller.js'))
+    .pipe(gulp.dest('./public/scripts/controllers/'))
+});
+
+gulp.task('concat:services', function() {
+  gulp.src('app/scripts/services/*.js')
+    .pipe(concat('services.js'))
+    .pipe(gulp.dest('./public/scripts/services/'))
+});
+
 gulp.task('static-files', function() {
   return gulp.src(paths.staticFiles)
     .pipe(gulp.dest('public/'));
+});
+
+gulp.task('bower', function() {
+  return bower()
+    .pipe(gulp.dest('public/lib/'));
 });
 
 gulp.task('nodemon', function() {
@@ -120,7 +145,7 @@ gulp.task('nodemon', function() {
   });
 });
 
-gulp.task('e2e:test', function(cb) {
+gulp.task('test:e2e', function(cb) {
   gulp.src('./tests/e2e/**/*.js')
     .pipe(protractor({
       configFile : './protractor.conf.js',
@@ -135,7 +160,7 @@ gulp.task('e2e:test', function(cb) {
 gulp.task('watch', function() {
   gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.styles, ['less']);
-  // gulp.watch(paths.scripts, []);
+  gulp.watch(paths.scripts, ['minify']);
 });
 
 gulp.task('watch:fend', function() {
@@ -143,8 +168,9 @@ gulp.task('watch:fend', function() {
 })
 
 // 'e2e:test', 'fend:test'
-gulp.task('build', ['jade', 'less', 'static-files', 'images']);
+gulp.task('build', ['bower', 'jade', 'less', 'static-files', 'images', 'minify']);
 gulp.task('test', ['bend:test']);
+gulp.task('concat:development', ['concat:controllers', 'concat:services']);
 gulp.task('heroku:production', ['build']);
 gulp.task('production', ['nodemon', 'build']);
 gulp.task('default', ['nodemon', 'build', 'watch'], function() {
