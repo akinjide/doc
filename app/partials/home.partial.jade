@@ -1,0 +1,54 @@
+div(class="layout-row" id="doc__home__wrapper_bg" ng-controller="userController")
+  div.doc__overlay
+    div(tabindex="-1" role="main" class="layout-column flex")
+      md-toolbar.md-whiteframe-glow-z1.site-content-toolbar.md-accent
+        div.fill-height.layout-row.flex.doc__home__container
+          div.md-toolbar-item.md-breadcrumb.md-headline.doc__home__logo
+            img(src="../images/logo.png")
+          span.flex
+          div(class="md-toolbar-item docs-tools layout-row doc__home__form" hide-sm)
+            form(ng-submit="login(param)" layout name="userForm")
+              md-input-container(flex)
+                label Username (required)
+                input(ng-model="param.username" type="text" name="username" ng-required="true")
+              md-input-container(flex)
+                label Password
+                input(ng-model="param.password" type="password" name="password" ng-required="true")
+              md-button(class="doc__in" ng-disabled="userForm.$error.required") SIGN IN
+      section(layout="row")
+        div(flex-offset-gt-md="20" flex-offset-md="20")
+        div(hide-sm hide-md flex="30" class="doc__about")
+          h1 Capture what’s on your mind
+          h5 Add notes, an access them on your phone, tablet and computer. Everything you add syncs across your devices so your important stuff is always with you.
+        div(hide-sm hide-md flex="10")
+        md-content(layout-padding class="md-inline-form doc__sidebar__form" flex="40" flex-md="60" flex-sm="100")
+          div(class="md-toolbar-item" hide-gt-sm)
+            section(layout-sm="row" layout-align="center center" layout-wrap)
+              h4 Already a member?
+              md-button(class="doc__in" ui-sref="sm-signin") SIGN IN
+            md-divider
+          form(ng-submit="createUser(params)" name="signupForm")
+            h1 Don't have an account yet?
+            h4 It’s free and always will be.
+            div(layout layout-sm="column")
+              md-input-container(flex)
+                label First name
+                input(ng-model="params.first" type="text" name="firstname" ng-required="true")
+              md-input-container(flex)
+                label Last name
+                input(ng-model="params.last" type="text" name="lastname" ng-required="true")
+            md-input-container(flex class="md-block")
+              label Username
+              input(ng-model="params.username" type="text" name="username" ng-required="true")
+            md-input-container(flex class="md-block")
+              label Email
+              input(ng-model="params.email" type="email" name="email" ng-required="true")
+            md-input-container(flex class="md-block")
+              label Password
+              input(ng-model="params.password" type="password" name="password" ng-required="true" ng-minlength="5")
+              div(ng-show="signupForm.password.$error.minlength" role="alert")
+                div(ng-message="required") Password too short, must be more than 5 characters long.
+            section(layout-sm="column" layout-align="center center" layout-wrap)
+              md-button(class="doc__in" ng-disabled="signupForm.$error.required") SIGN UP
+              p By clicking Sign Up, you agree to our #[b Terms] and that you have read our #[b Data Policy], including our #[b Cookie Use].
+        div(flex)

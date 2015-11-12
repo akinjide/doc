@@ -1,0 +1,12 @@
+doctype html
+html(lang="en" ng-strict-di ng-app="myApp")
+  head
+    include shared/head
+  body(ng-controller="materialController")
+    // UI-ROUTER : UI-VIEW
+    div(ui-view)
+
+    noscript
+      div.nojs  We're sorry but our site #[strong requires] JavaScript. Javascript is either disabled or not supported in your browser. Please enable it or use a Javascript enabled browser
+
+    include shared/scripts
