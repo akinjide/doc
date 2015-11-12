@@ -18,7 +18,7 @@ module.exports = {
    */
   verify : function(req, res, next) {
     // check header, url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token']
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     // decode token
     if (token) {
@@ -43,5 +43,5 @@ module.exports = {
       // if there is no token, return error
       return res.json({ statusCode : 499, status : 'Token required', message : 'not authorized, please login' });
     }
-  }
+  };
 };

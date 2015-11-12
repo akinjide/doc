@@ -2,7 +2,7 @@
   "name": "doc",
   "version": "1.0.0",
   "description": "A front end for the document management system api, built using Angular JS and Angular Material Design.",
-  "main": "gulpfile.js",
+  "main": "index.js",
   "directories": {
     "test": "tests"
   },
