@@ -35,7 +35,7 @@ var gulp  = require('gulp'),
         'app/**/*.*',
         'app/scripts/**/*.*'
       ],
-      unitTests : ['tests/unit/**/*.spec.js', 'public/scripts/**/*.js']
+      unitTests : ['tests/unit/**/*.spec.js', 'app/scripts/**/*.js']
     };
 
 gulp.task('test:fend', function(done) {
@@ -73,9 +73,9 @@ gulp.task('less', function() {
     .pipe(less({
       paths : [path.join(__dirname, './app/styles')]
     }))
-    .pipe(concat('style'))
+    .pipe(concat('application'))
     .pipe(minifyCss())
-    .pipe(rename("doc_style.min.css"))
+    .pipe(rename("application.css"))
     .pipe(gulp.dest('./public/styles'));
 });
 
@@ -103,7 +103,7 @@ gulp.task('lint', function() {
 
 gulp.task('minify', function() {
   gulp.src(paths.scripts)
-    .pipe(concat('doc_script.min.js'))
+    .pipe(concat('index.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./public/scripts/min/'))
 });
@@ -127,7 +127,7 @@ gulp.task('static-files', function() {
 
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('public/lib/'));
+    .pipe(gulp.dest('./public/lib/'));
 });
 
 gulp.task('nodemon', function() {
@@ -163,13 +163,9 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['minify']);
 });
 
-gulp.task('watch:fend', function() {
-  return gulp.watch(paths.unitTests, ['fend:test'])
-})
-
-// 'e2e:test', 'fend:test'
+// 'test:e2e', 'test:fend'
 gulp.task('build', ['bower', 'jade', 'less', 'static-files', 'images', 'minify']);
-gulp.task('test', ['test:bend']);
+gulp.task('test', ['test:bend', ]);
 gulp.task('concat:development', ['concat:controllers', 'concat:services']);
 gulp.task('heroku:production', ['build']);
 gulp.task('production', ['nodemon', 'build']);
