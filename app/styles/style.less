@@ -21,6 +21,7 @@
 @top: 0;
 @bottom: 0;
 @main-per: 100%;
+@images: "../images";
 
 h1, h5, h4 {
   color: @color-7;
@@ -198,7 +199,7 @@ md-toolbar {
 }
 
 #doc__home__wrapper_bg {
-  background: url("../images/bg.jpg");
+  background: url("@{images}/bg.jpg");
   background-size: cover;
   position: @pa;
   top: @top;
@@ -264,7 +265,7 @@ md-toolbar {
     font-size: @main-size + 60px;
     font-family: monaco;
     padding-bottom: @main-size + 213px;
-    background: url(../images/error_message.jpg) bottom center no-repeat;
+    background: url('@{images}/error_message.jpg') bottom center no-repeat;
     width: 100%;
   }
 }

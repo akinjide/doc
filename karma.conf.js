@@ -24,7 +24,7 @@ module.exports = function(config) {
         'public/lib/sweetalert/dist/sweetalert.min.js',
         'public/lib/angular-loading-bar/build/loading-bar.min.js',
         'public/lib/angular-cookies/angular-cookies.min.js',
-        'public/scripts/**/*.js',
+        'app/scripts/**/*.js',
         'tests/unit/**/*.spec.js'
     ],
 

@@ -2,7 +2,7 @@
   "name": "doc",
   "version": "1.0.0",
   "description": "A front end for the document management system api, built using Angular JS and Angular Material Design.",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "directories": {
     "test": "tests"
   },
@@ -55,9 +55,9 @@
     "node": ">=0.12.5"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "if [ '$NODE_ENV' = 'production' ]; then node index.js; else PORT=3000 nodemon index.js; fi",
     "test": "gulp test",
-    "build": "gulp heroku:production"
+    "prestart": "gulp heroku:production"
   },
   "repository": {
     "type": "git",
