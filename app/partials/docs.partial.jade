@@ -18,7 +18,7 @@ div(layout="row" ng-cloak ng-controller="userController")
       div(flex)
     md-content(layout="column" flex layout-padding class="md-inline-form doc__sidebar__form")
       div
-        md-list(layout="column" layout-padding ng-repeat="document in userDocuments")
+        md-list(layout="column" layout-padding ng-repeat="document in userDocuments | orderBy:'document.dateCreated':'reverse'")
           div(class="md-3-line md-long-text")
             h3(ng-bind="document.title")
             p {{ document.content }}
