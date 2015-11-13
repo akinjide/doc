@@ -17,9 +17,7 @@
     "jsonwebtoken": "^5.4.1",
     "method-override": "^2.3.5",
     "mongoose": "^4.2.4",
-    "morgan": "^1.6.1"
-  },
-  "devDependencies": {
+    "morgan": "^1.6.1",
     "chance": "^0.8.0",
     "chromedriver": "^2.19.0",
     "frisby": "^0.8.5",
@@ -57,7 +55,7 @@
   "scripts": {
     "start": "if [ '$NODE_ENV' = 'production' ]; then node index.js; else PORT=3000 nodemon index.js; fi",
     "test": "gulp test",
-    "prestart": "gulp heroku:production"
+    "poststart": "gulp heroku:production"
   },
   "repository": {
     "type": "git",
