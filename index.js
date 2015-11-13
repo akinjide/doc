@@ -1,6 +1,5 @@
 // load dotenv library
 require('dotenv').load();
-
 // get mongoose user and document model and config file
 var User      = require('./server/models/document.model'),
     Document  = require('./server/models/user.model'),
@@ -66,6 +65,6 @@ app.get('*', function(req, res) {
 
 // start the server
 app.listen(port, function() {
-  console.log('Success: http://localhost:%d', port);
+  console.log('Success: http://localhost:%d', port, app.get('env'));
 });
 
