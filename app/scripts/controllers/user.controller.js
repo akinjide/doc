@@ -128,7 +128,6 @@ angular.module('myApp')
               if (data.statusCode === 200) {
                 toastr(data.statusMessage);
                 $cookies.remove('uID');
-                $cookies.remove('uT');
                 $cookies.remove('dID');
                 $cookies.remove('session');
                 $state.go('home');
