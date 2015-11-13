@@ -55,7 +55,7 @@
   "scripts": {
     "start": "if [ '$NODE_ENV' = 'production' ]; then node index.js; else PORT=3000 nodemon index.js; fi",
     "test": "gulp test",
-    "build": "gulp heroku:production"
+    "postinstall": "gulp heroku:production"
   },
   "repository": {
     "type": "git",
