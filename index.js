@@ -1,5 +1,8 @@
-// load dotenv library
-require('dotenv').load();
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') {
+  // load dotenv library
+  require('dotenv').load();
+}
 
 // get mongoose user and document model and config file
 var User      = require('./server/models/document.model'),
@@ -27,14 +30,7 @@ var User      = require('./server/models/document.model'),
  * connect to database
  * database url comes from config file
  */
-mongoose.connect(config.database, function(err, response) {
-  if (err) {
-    console.error('Error: connecting to (%s)(%s)', config.database, err);
-  }
-  else {
-    console.log('Success: connected to (%s)', config.database);
-  }
-});
+mongoose.connect(config.database);
 
 app.use(express.static(__dirname + '/public')); 
 
