@@ -1,8 +1,5 @@
-var env = process.env.NODE_ENV || 'development';
-if (env === 'development') {
-  // load dotenv library
-  require('dotenv').load();
-}
+// load dotenv library
+require('dotenv').load();
 
 // get mongoose user and document model and config file
 var User      = require('./server/models/document.model'),
