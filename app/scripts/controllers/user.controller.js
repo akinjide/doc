@@ -19,57 +19,62 @@ angular.module('myApp')
     '$state', 
     '$cookies', 
     '$mdToast',
-    function($scope, $log, UserService, $state, $cookies, $mdToast){
+    function($scope, $log, UserService, $state, $cookies, $mdToast) {
 
-      function check () {
-        var user = $cookies.get('uID');
-        return user ? true : false;
-      }
+      /** [check checks for user status] */
+      // if (!UserService.checkUser()) {
+      //   $state.go('home');
+      // };
 
       var userID = $cookies.get('uID');
-      $log.log(userID);
 
-      function setExpire(exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        return d.toGMTString();
-      };
+      //HELPER FUNCTIONS
+        /**
+         * [setExpire Sets expiring date on every cookies signed]
+         * @param   {[number]}   exdays [a cookie maxAge]
+         */
+        function setExpire(exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          return d.toGMTString();
+        }
 
-      function toastrAction(content) {
-        $mdToast.show(
-          $mdToast.simple()
-            .content(content)
-            .action('OK')
-            .position('top right')
-        );
-      };
+        /** [toastrAction Displays message to user with an action the user needs to respond to] */
+        function toastrAction(content) {
+          $mdToast.show(
+            $mdToast.simple()
+              .content(content)
+              .action('OK')
+              .position('top right')
+          );
+        }
 
-      function toastr(content, time) {
-        $mdToast.show(
-          $mdToast.simple()
-            .content(content)
-            .position('top right')
-            .hideDelay(3000)
-        );
-      };
+        /** [toastr Displays message to user] */
+        function toastr(content) {
+          $mdToast.show(
+            $mdToast.simple()
+              .content(content)
+              .position('top right')
+              .hideDelay(3000)
+          );
+        }
 
-      UserService
-        .getUser(userID)
-        .then(function(response) {
-          var getUserResponse = response.data;
-          $scope.vm = getUserResponse['response'];
-        });
-
+      /**
+       * [login Logs and create a session for the user in 
+       *        if the correct Username and Password is provided.
+       *        Also saves basic user info to cookie]
+       * @param     {[Object]}    param [contains user information]
+       */
       $scope.login = function(param) {
         UserService
           .userLogin(param)
           .then(function(response) {
             var data = response.data;
-
+            
+            // Compare response statusCode 
             if (data.statusCode === 200) {
               var userDetails = data['response'];
 
-              $log.log(data);
               $cookies.put('uT', userDetails.token, { expires : setExpire(1) });
               $cookies.put('uID', userDetails.user['_id'], { expires : setExpire(1) });
 
@@ -82,23 +87,26 @@ angular.module('myApp')
                 toastr(data.statusMessage);
               }
               else {
-                toastr(data.statusMessage);
+                toastr(data.statusMessage + ', are you trying to create an account?');
               }
             }
             else if (data.statusCode === 500) {
-              $log.log(data);
               toastr(data.statusMessage);
             } 
           });
       };
 
+      /**
+       * [createUser creates a new user with the provided information]
+       * @param     {[Object]}        params [contains user information]
+       */
       $scope.createUser = function(params) {
         UserService
           .createUser(params)
           .then(function(response) {
             var data = response.data;
-            $log.log(data);
-            
+
+            // Compare response statusCode 
             if (data.statusCode === 201) {
               $state.reload();
               toastrAction(data.statusMessage + ', Please sign in, to continue');
@@ -115,113 +123,144 @@ angular.module('myApp')
           });
       };
 
-      if (!check()) {
-        $state.go('home')
+      /** [if checks if userID is available in cookies,
+        *     if there is it gets the user information.] 
+        */  
+      if (userID) {
+        UserService
+          .getUser(userID)
+          .then(function(response) {
+            var getUserResponse = response.data;
+            $scope.vm = getUserResponse['response'];
+          });
       }
-      else {
-        $scope.logout = function() {
-          UserService
-            .userLogout()
-            .then(function(response) {
-              var data = response.data;
 
-              if (data.statusCode === 200) {
-                toastr(data.statusMessage);
-                $cookies.remove('uID');
-                $cookies.remove('dID');
-                $cookies.remove('session');
-                $state.go('home');
-                $log.log($cookies.get('session'));
-              }
-              else if (data.statusCode === 401) {
-                toastr(data.statusMessage);
-                $log.log(data);
-              }
-              else if (data.statusCode === 500) {
-                toastr(data.statusMessage);
-                $log.log(data);
-              }
-            });
-        };
-        
-        $scope.updateUser = function(params) {
-          var userID = $cookies.get('uID');
+      /** [logout Destroys user session and destroy cookie data] */
+      $scope.logout = function() {
+        UserService
+          .userLogout()
+          .then(function(response) {
+            var data = response.data;
 
-          swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover previous details!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#90BAE8",   
-            confirmButtonText: "Yes, update it!",
-            cancelButtonText: "No, cancel!",   
-            closeOnConfirm: false,
-            closeOnCancel: false 
-          }, function(isConfirm) {  
-            if (isConfirm) { 
-              UserService
-                .updateUser(userID, params)
-                .then(function(response) {
-                  var data = response.data;
-
-                  if (data.statusCode === 200) {
-                    $state.go('profile');
-                  }
-                  else if (data.statusCode === 500) {
-                    toastr(data.statusMessage);
-                  }
-                });
-              swal("Updated!", "Your profile has been updated.", "success"); 
-            } 
-            else {
-              $state.reload();
-              swal("Cancelled", "Your profile is safe :)", "error"); 
+            // Compare response statusCode 
+            if (data.statusCode === 200) {
+              toastr(data.statusMessage);
+              $cookies.remove('uID');
+              $cookies.remove('dID');
+              $cookies.remove('session');
+              $state.go('home');
+            }
+            else if (data.statusCode === 401) {
+              toastr(data.statusMessage);
+            }
+            else if (data.statusCode === 500) {
+              toastr(data.statusMessage);
             }
           });
-        };
+      };
+      
+      /** [edit activates user edit profile page.] */
+      $scope.edit = function(id) {
+        $state.go('editprofile', {
+          userID : id
+        });
+      };
 
-        $scope.deleteUser = function(id) {
-          $log.log(id);
-          swal({   
-            title: "Are you sure?",   
-            text: "You will not be able to recover this profile, please read the T&A below!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#F58080",   
-            confirmButtonText: "Yes, delete it!",   
-            cancelButtonText: "No, cancel!",   
-            closeOnConfirm: false,   
-            closeOnCancel: false 
-          }, function(isConfirm){   
-            if (isConfirm) {     
-              UserService
-                .deleteUser(id)
-                .then(function(response) {
-                  var data = response.data;
+      /**
+       * [updateUser updates a user with the new information provided.]
+       * @param     {[Object]}     params [contains user information]
+       */
+      $scope.updateUser = function(params) {
+        var userID = $cookies.get('uID');
 
-                  if (data.statusCode === 200) {
-                    $cookies.remove('uID');
-                    $cookies.remove('uT');
-                    $cookies.remove('dID');
-                    $state.go('home');
-                  }
-                  else if (data.statusCode === 500) {
-                    toastr(data.statusMessage);
-                  }
-                });
-              swal("Deleted!", "Your profile has been deleted, Really sad you leaving", "success");   
-            } 
-            else {     
-              swal("Cancelled", "Your profile is safe :)", "error");   
-            } 
-          });
-        };
+        // Sweet Alert
+        swal({   
+          title: "Are you sure?",   
+          text: "You will not be able to recover previous details!",   
+          type: "warning",   
+          showCancelButton: true,   
+          confirmButtonColor: "#90BAE8",   
+          confirmButtonText: "Yes, update it!",
+          cancelButtonText: "No, cancel!",   
+          closeOnConfirm: false,
+          closeOnCancel: false 
+        }, function(isConfirm) {  
+          if (isConfirm) { 
+            UserService
+              .updateUser(userID, params)
+              .then(function(response) {
+                var data = response.data;
 
+                // Compare response statusCode 
+                if (data.statusCode === 200) {
+                  $state.go('profile');
+                }
+                else if (data.statusCode === 500) {
+                  toastr(data.statusMessage);
+                }
+              });
+            swal("Updated!", "Your profile has been updated.", "success"); 
+          } 
+          else {
+            $state.reload();
+            swal("Cancelled", "Your profile is safe :)", "error"); 
+          }
+        });
+      };
+
+      /**
+       * [deleteUser deletes a user by id and removes all cookie data]
+       * @param     {[String]}      id [User ID]
+       */
+      $scope.deleteUser = function(id) {
+
+        // Sweet Alert
+        swal({   
+          title: "Are you sure?",   
+          text: "You will not be able to recover this profile, please read the T&A below!",   
+          type: "warning",   
+          showCancelButton: true,   
+          confirmButtonColor: "#F58080",   
+          confirmButtonText: "Yes, delete it!",   
+          cancelButtonText: "No, cancel!",   
+          closeOnConfirm: false,   
+          closeOnCancel: false 
+        }, function(isConfirm){   
+          if (isConfirm) {     
+            UserService
+              .deleteUser(id)
+              .then(function(response) {
+                var data = response.data;
+
+                // Compare response statusCode 
+                if (data.statusCode === 200) {
+                  $cookies.remove('uID');
+                  $cookies.remove('uT');
+                  $cookies.remove('dID');
+                  $state.go('home');
+                }
+                else if (data.statusCode === 500) {
+                  toastr(data.statusMessage);
+                }
+              });
+            swal("Deleted!", "Your profile has been deleted, Really sad you leaving", "success");   
+          } 
+          else {     
+            swal("Cancelled", "Your profile is safe :)", "error");   
+          } 
+        });
+      };
+
+      /** [if checks if userID is available in cookies,
+        *     if there is it gets all the user document.] 
+        */  
+      if (userID) {
         UserService
           .getUserDocuments(userID)
           .then(function(response) {
             var data = response.data;
 
+            // Compare response statusCode 
             if (data.statusCode === 200) {
               $scope.userDocuments = data['response'];
             }
@@ -229,7 +268,7 @@ angular.module('myApp')
               toastr(data.statusMessage);
             }
             else if (data.statusCode === 204) {
-              //toastrAction(data.statusMessage)
+              toastr('You don\'t have any document, create one now :)');
             }
           });
       }

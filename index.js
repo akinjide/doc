@@ -65,6 +65,5 @@ app.get('*', function(req, res) {
 
 // start the server
 app.listen(port, function() {
-  console.log('Success: http://localhost:%d', port, app.get('env'));
+  console.log('Success: http://localhost:%d', port);
 });
-

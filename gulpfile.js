@@ -47,10 +47,6 @@ gulp.task('test:fend', function(done) {
 
 gulp.task('test:bend', function() {
   return gulp.src('./tests/server/*.spec.js')
-    .pipe(mocha({
-      reporter : 'spec',
-      timeout: 50000
-    }))
     .pipe(jasmine({
       // spec output uses color to indicate passing (green)
       showColors: true, 
@@ -149,7 +145,7 @@ gulp.task('test:e2e', function(cb) {
   gulp.src('./tests/e2e/**/*.js')
     .pipe(protractor({
       configFile : './protractor.conf.js',
-      args : ['--baseUrl', 'http://127.0.0.1:8000']
+      args : ['--baseUrl', 'http://127.0.0.1:3000']
     }))
     .on('error', function(e) {
       console.log(e);
@@ -163,9 +159,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['minify']);
 });
 
-// 'test:e2e', 'test:fend'
 gulp.task('build', ['bower', 'jade', 'less', 'static-files', 'images', 'minify']);
-gulp.task('test', ['test:bend', ]);
+gulp.task('test', ['test:bend', 'test:fend']);
 gulp.task('concat:development', ['concat:controllers', 'concat:services']);
 gulp.task('heroku:production', ['build']);
 gulp.task('production', ['nodemon', 'build']);

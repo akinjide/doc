@@ -10,10 +10,14 @@ div(layout="row" ng-cloak ng-controller="userController")
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile") Profile]
           p(ng-click="logout()" class="doc__signout__button") Sign out
+          span.doc__social__icon 
+            a(href="https://github.com/andela-abankole/doc") 
+              i.fa.fa-github
+              md-tooltip View project on Github
   section(layout="column" flex ng-controller="docController")
     md-content(layout-padding)
       div(layout="column" layout-fill layout-align="top center")
-        md-button(ng-click="toggleLeft()" class="md-fab doc__sidebar__button" aria-label="Menu" class="md-primary")
+        md-button(ng-click="toggleLeft()" class="md-fab md-primary doc__sidebar__button" aria-label="Menu" class="md-primary")
           i.fa.fa-bars
       div(flex)
     md-content(layout="column" flex layout-padding class="md-inline-form doc__sidebar__form")
@@ -28,8 +32,9 @@ div(layout="row" ng-cloak ng-controller="userController")
               p #[small #[b lastModified:] {{ document.lastModified | date:'medium' }}]
             md-fab-speed-dial(md-open="false" md-direction="right" class="md-scale")
               md-fab-trigger.align-with-text
-                md-button(aria-label="Menu" class="md-fab md-primary")
+                md-button(aria-label="Menu" class="md-fab doc__action__button md-mini md-primary")
                   i.fa.fa-chevron-right
+                  md-tooltip More
               md-fab-actions
                 md-button(aria-label="Edit" class="md-fab md-raised md-mini" ng-click="edit(document._id)")
                   i.fa.fa-pencil
@@ -38,3 +43,5 @@ div(layout="row" ng-cloak ng-controller="userController")
                   i.fa.fa-trash-o
                   md-tooltip Delete
           md-divider(style="margin: 12px 0px")
+      div
+        p(ng-if="!userDocuments") no document

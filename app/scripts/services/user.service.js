@@ -5,7 +5,7 @@
 */
 angular.module('myApp')
   .value('userAPI', '/api/users')
-  .factory('UserService', ['$http', '$log', 'userAPI', function($http, $log, userAPI) {
+  .factory('UserService', ['$http', '$log', 'userAPI', '$cookies', function($http, $log, userAPI, $cookies) {
     return {
       
       /**
@@ -23,6 +23,12 @@ angular.module('myApp')
                                     email      : params.email, 
                                     password   : params.password 
                                   });
+      },
+
+      /** [check checks for user status] */
+      checkUser : function() {
+        var user = $cookies.get('uID');
+        return user ? true : false;
       },
 
       /**

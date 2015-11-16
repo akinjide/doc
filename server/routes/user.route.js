@@ -16,33 +16,33 @@ module.exports = function(router) {
     * accessed at POST /api/users
     */
   router.route('/users')
-    .post(userController.createUser)
+    .post(userController.createUser);
 
   /**
    * login a user and generatess a token
    * accessed at POST /api/users/login
    */
   router.route('/users/login')
-    .post(userController.login)
+    .post(userController.login);
 
   /**
    * middleware verify user token before below routes
    * can be accessed
    */
-  router.use(verifyToken.verify)
+  router.use(verifyToken.verify);
 
   /**
    * 
    */
   router.route('/users/logout')
-    .post(userController.logout)
+    .post(userController.logout);
 
   /**
    * retrieves all users 
    * accessed at GET /api/users
    */
   router.route('/users')
-    .get(userController.getUsers)
+    .get(userController.getUsers);
 
   /**
    * user by id 
@@ -53,12 +53,12 @@ module.exports = function(router) {
   router.route('/users/:id')
     .get(userController.getUser)
     .put(userController.updateUser)
-    .delete(userController.deleteUser)
+    .delete(userController.deleteUser);
 
   /**
    * retrieve a user documents
    * accessed at GET /api/users/:id/documents
    */
   router.route('/users/:id/documents')
-    .get(userController.getUserDocument)
+    .get(userController.getUserDocument);
 };

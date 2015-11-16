@@ -10,6 +10,10 @@ div(layout="row" ng-cloak ng-controller="userController")
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile" class="active") Profile]
           p(ng-click="logout()" class="doc__signout__button") Sign out
+          span.doc__social__icon 
+            a(href="https://github.com/andela-abankole/doc") 
+              i.fa.fa-github
+              md-tooltip View project on Github
   section(layout="row" flex class="doc__profile")
     md-content(flex="15" flex-sm="35" flex-gt-md="30" layout-padding)
       div(layout="column" layout-fill layout-align="top center")

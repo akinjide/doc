@@ -83,21 +83,24 @@ md-sidenav {
 
 .doc__sidebar__button.md-button.md-fab {
   color: @base-color;
-  background-color: @main-color;
+  background-color: #379C94;
   padding: 4px;
   i.fa {
     font-size: @main-size + 11px;
   }
 }
 
-.doc__sidebar__button.md-button.md-fab:not([disabled]).md-focused {
-  color: @base-color;
-  background-color: @main-color;
-}
-
+.doc__sidebar__button.md-button.md-fab:not([disabled]).md-focused,
 .doc__sidebar__button.md-button.md-fab:not([disabled]):hover {
   color: @base-color;
-  background-color: @main-color;
+  background-color: #379C94;
+}
+
+.doc__action__button.md-button.md-primary.md-fab,
+.doc__action__button.md-button.md-primary.md-fab:not([disabled]).md-focused,
+.doc__action__button.md-button.md-primary.md-fab:not([disabled]):hover {
+  color: rgb(33,33,33);
+  background-color: rgba(255,255,255,0.87);
 }
 
 .doc__sidebar__form {
@@ -319,4 +322,15 @@ md-fab-trigger.align-with-text {
 .doc__signout__button {
   cursor: pointer;
   outline: none;
+}
+
+// Social Buttons
+.doc__social__icon {
+  a {
+    text-decoration: none;
+    i {
+      font-size: @main-size + 16px;
+      color: @base-color;
+    }
+  }
 }

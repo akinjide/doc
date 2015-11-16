@@ -21,40 +21,43 @@ angular.module('myApp')
     '$mdToast',
     function($scope, $log, DocService, $state, $cookies, $mdToast){
 
-      function check () {
-        var user = $cookies.get('uID');
-        return user ? true : false;
-      };
-
-      if (!check()) {
-        $state.go('home')
-      }
-      else {
+      /** [check checks for user status] */
         var docID = $cookies.get('dID');
 
-        DocService
-          .getDocument(docID)
-          .then(function(response) {
-            var data = response.data;
-            $scope.param = data['response'];
-          });
+        /** [if checks if docID is available in cookies,
+          *     if there is it gets the document.] 
+          */  
+        if (docID) {
+          DocService
+            .getDocument(docID)
+            .then(function(response) {
+              var data = response.data;
+              $scope.param = data['response'];
+            });
+        }
 
-        function toastr(content, time) {
-          $mdToast.show(
-            $mdToast.simple()
-              .content(content)
-              .position('top right')
-              .hideDelay(3000)
-          );
-        };
+        // HELPER FUNCTION
+          /** [toastr Displays message to user] */
+          function toastr(content) {
+            $mdToast.show(
+              $mdToast.simple()
+                .content(content)
+                .position('top right')
+                .hideDelay(3000)
+            );
+          }
         
+        /**
+         * [createDocument create a document with the data provided]
+         * @param     {[Object]}    params [contains the document data]
+         */
         $scope.createDocument = function(params) {
           DocService
             .createDocument(params)
             .then(function(response) {
-
               var data = response.data;
-              
+
+              // Compare response statusCode 
               if (data.statusCode === 201) {
                 toastr(data.statusMessage);
                 $state.go('documents');
@@ -66,20 +69,27 @@ angular.module('myApp')
                 toastr(data.statusMessage);
               }
               else if (data.statusCode === 409) {
-                toastr(data.statusMessage);
+                toastr('Document with similar title already exist!');
               }
             });
         };
 
+        /** [edit activates document edit document page.] */
         $scope.edit = function(id) {
           $cookies.put('dID', id);
-          $state.go('editdocument');
+          $state.go('editdocument', {
+            dID : id
+          });
         };
 
+        /**
+         * [updateDocument updates a document with the new data provided.]
+         * @param     {[Object]}     params [contains document data]
+         */
         $scope.updateDocument = function(param) {
           var docID = $cookies.get('dID');
-          $log.log(docID, param);
 
+          // Sweet Alert
           swal({   
             title: "Are you sure?",   
             text: "You will not be able to recover previous document!",   
@@ -97,6 +107,7 @@ angular.module('myApp')
                 .then(function(response) {
                   var data = response.data;
 
+                  // Compare response statusCode 
                   if (data.statusCode === 200) {
                     $state.go('documents');
                   }
@@ -113,8 +124,13 @@ angular.module('myApp')
           });
         };
 
+        /**
+         * [deleteDocument deletes a document by ID.]
+         * @param     {[Object]}     params [contains document ID]
+         */
         $scope.deleteDocument = function(id) {
-          $log.log(id);
+
+          // Sweet Alert
           swal({   
             title: "Are you sure?",   
             text: "You will not be able to recover this document!",   
@@ -132,9 +148,10 @@ angular.module('myApp')
                 .then(function(response) {
                   var data = response.data;
 
+                  // Compare response statusCode 
                   if (data.statusCode === 200) {
-                    $state.reload();
                     $cookies.remove('dID');
+                    $state.reload();
                   }
                   else if (data.statusCode === 500) {
                     toastr(data.statusMessage);
@@ -147,6 +164,5 @@ angular.module('myApp')
             }
           });
         };
-      }
   }]);
 })();

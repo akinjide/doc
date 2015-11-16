@@ -18,7 +18,7 @@ module.exports = function(router) {
      * create a new document 
      * accessed at POST /api/documents
      */
-    .post(documentController.createDocument)
+    .post(documentController.createDocument);
   router.route('/documents/:id')
     /**
      * document by id 
@@ -28,5 +28,5 @@ module.exports = function(router) {
      */
     .get(documentController.getDocument)
     .put(documentController.updateDocument)
-    .delete(documentController.deleteDocument)
-}
+    .delete(documentController.deleteDocument);
+};
