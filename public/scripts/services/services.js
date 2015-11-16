@@ -1,0 +1,159 @@
+/**
+*  @module [DocService]
+*
+*  @description [service: return response for HTTP Request]
+*/
+angular.module('myApp')
+  .value('documentAPI', '/api/documents')
+  .factory('DocService', ['$http', 'documentAPI', function($http, documentAPI) {
+    return {
+
+      /**
+       * [createDocument POST creates a document]
+       * @param     {[Object]}     params [contains document title and content to create]
+       * @return    {[Object]}            [a promise from API]
+       */
+      createDocument : function(params) {
+        return $http.post(documentAPI, { title : params.title, content : params.content });
+      },
+
+      /**
+       * [getDocuments GET all documents]
+       * @return    {[Object]}      [a promise from API]
+       */
+      getDocuments : function() {
+        return $http.get(documentAPI);
+      },
+
+      /**
+       * [getDocument GET a document]
+       * @param     {[String]}    docID [contains docID]
+       * @return    {[Object]}          [a promise from API]
+       */
+      getDocument : function(docID) {
+        return $http.get(documentAPI + '/' + docID);
+      },
+
+      /**
+       * [updateDocument PUT a document]
+       * @param     {[String]}    docID  [contains docID]
+       * @param     {[Object]}    params [contains document title and content to create]
+       * @return    {[Object]}           [a promise from API]
+       */
+      updateDocument : function(docID, params) {
+        return $http.put(documentAPI + '/' + docID, { title : params.title, content : params.content });
+      },
+
+      /**
+       * [deleteDocument DELETE a document]
+       * @param     {[String]}    docID  [contains docID]
+       * @return    {[Object]}           [a promise from API]
+       */
+      deleteDocument : function(docID) {
+        return $http.delete(documentAPI + '/' + docID);
+      },
+    };
+  }]);
+/**
+*  @module [UserService]
+*
+*  @description [service: return response for HTTP Request]
+*/
+angular.module('myApp')
+  .value('userAPI', '/api/users')
+  .factory('UserService', ['$http', '$log', 'userAPI', '$cookies', function($http, $log, userAPI, $cookies) {
+    return {
+      
+      /**
+       * [createUser POST creates a user]
+       * @param     {[Object]}     params [contains user details to create]
+       * @return    {[Object]}            [a promise from API]
+       */
+      createUser : function(params) {
+        return $http.post(userAPI, { 
+                                    username   : params.username, 
+                                    name       : {
+                                                  first : params.first, 
+                                                  last  : params.last
+                                                  },
+                                    email      : params.email, 
+                                    password   : params.password 
+                                  });
+      },
+
+      /** [check checks for user status] */
+      checkUser : function() {
+        var user = $cookies.get('uID');
+        return user ? true : false;
+      },
+
+      /**
+       * [userLogin POST logs in a user]
+       * @param     {[Object]}       param [contains user details to login]
+       * @return    {[Object]}             [a promise from API]
+       */
+      userLogin : function(param) {
+        return $http.post(userAPI + '/login', { username : param.username, password : param.password });
+      },
+
+      /**
+       * [userLogout POST logs out a user]
+       * @return    {[Object]}         [a promise from API]
+       */
+      userLogout : function() {
+        return $http.post(userAPI + '/logout');
+      },
+
+      /**
+       * [getUsers GET all users]
+       * @return    {[Object]}      [a promise from API]
+       */
+      getUsers : function() {
+        return $http.get(userAPI);
+      },
+
+      /**
+       * [getUser GET a user details]
+       * @param     {[String]}    userID [contains the logged in userID]
+       * @return    {[Object]}           [a promise from API]
+       */
+      getUser : function(userID) {
+        return $http.get(userAPI + '/' + userID);
+      },
+
+      /**
+       * [updateUser PUT a user]
+       * @param     {[String]}    userID [contains the logged in userID]
+       * @param     {[Object]}    params [contains user details to update]
+       * @return    {[Object]}           [a promise from API]
+       */
+      updateUser : function(userID, params) {
+        return $http.put(userAPI + '/' + userID, { 
+                                            username   : params.username, 
+                                            name       : {
+                                                          first : params.name.first, 
+                                                          last  : params.name.last
+                                                          },
+                                            email      : params.email, 
+                                          });
+      },
+
+      /**
+       * [deleteUser DELETE a user]
+       * @param     {[String]}      userID [contains the logged in userID]
+       * @return    {[Object]}             [a promise from API]
+       */
+      deleteUser : function(userID) {
+        return $http.delete(userAPI + '/' + userID);
+      },
+
+      /**
+       * [getUserDocuments GET a user documents]
+       * @param     {[String]}     userID [contains the logged in userID]
+       * @return    {[Object]}            [a promise from API]
+       */
+      getUserDocuments : function(userID) {
+        return $http.get(userAPI + '/' + userID + '/documents');
+      },
+    };
+  }]);
