@@ -9,7 +9,7 @@ div(layout="row" ng-cloak ng-controller="userController")
           p #[a(ui-sref="documents") View all document]
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile" class="active") Profile]
-          p(ng-click="logout()" class="doc__signout__button") Sign out
+          p #[a(ng-click="logout()" class="doc__signout__button") Sign out]
           span.doc__social__icon 
             a(href="https://github.com/andela-abankole/doc") 
               i.fa.fa-github
