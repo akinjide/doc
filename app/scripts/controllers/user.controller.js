@@ -237,7 +237,7 @@ angular.module('myApp')
                   $cookies.remove('uID');
                   $cookies.remove('uT');
                   $cookies.remove('dID');
-                  $scope.logout()
+                  $scope.logout();
                   $state.go('home');
                 }
                 else if (data.statusCode === 500) {
