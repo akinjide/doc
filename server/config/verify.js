@@ -37,7 +37,7 @@ module.exports = {
             return res.json({ statusCode : 401, status : 'Unauthorized', statusMessage : 'Not logged in, please login' });
           }
         }
-      })
+      });
     }
     else {
       // if there is no token, return error
