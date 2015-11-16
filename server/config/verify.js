@@ -28,14 +28,14 @@ module.exports = {
           return res.json({ statusCode : 498, status : 'Token expired/invalid', message : 'failed to authenticate token', response : err });
         }
         else {
-          if (req.session && req.session.userID) {
+          //if (req.session && req.session.userID) {
             // save to request for use in other routes if everything is good
             req.decoded = decoded;
             next();
-          } 
-          else {
-            return res.json({ statusCode : 401, status : 'Unauthorized', statusMessage : 'Not logged in, please login' });
-          }
+          // } 
+          // else {
+          //   return res.json({ statusCode : 401, status : 'Unauthorized', statusMessage : 'Not logged in, please login' });
+          // }
         }
       });
     }
