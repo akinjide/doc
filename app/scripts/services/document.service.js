@@ -5,7 +5,7 @@
 */
 angular.module('myApp')
   .value('documentAPI', '/api/documents')
-  .factory('DocService', ['$http', 'documentAPI', '$log', function($http, documentAPI, $log) {
+  .factory('DocService', ['$http', 'documentAPI', function($http, documentAPI) {
     return {
 
       /**
