@@ -17,7 +17,7 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$locati
       templateUrl: "../partials/404.partial.html"
     })    
     .state('sm-signin', {
-      url: "/sc-wd-598/signin",
+      url: "/xs-sc_598/signin",
       templateUrl: '../partials/sm-signin.partial.html'
     })
     .state('home', {
@@ -29,7 +29,8 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$locati
       templateUrl: "../partials/adddoc.partial.html",
     })
     .state('editdocument', {
-      url: "/documents/edit",
+
+      url: "/documents/edit_/_id=:dID",
       templateUrl: "../partials/editdoc.partial.html",
     })
     .state('documents', {
@@ -41,7 +42,7 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$locati
       templateUrl: "../partials/profile.partial.html",
     })
     .state('editprofile', {
-      url: "/profile/edit",
+      url: "/profile/edit_/_id=:userID",
       templateUrl: "../partials/editprofile.partial.html",
     });
 
@@ -56,7 +57,25 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$locati
 angular.module('myApp').run([
   '$http', 
   '$cookies',
-  function($http, $cookies) {
+  '$rootScope',
+  '$state',
+  '$location',
+  'UserService',
+  function($http, $cookies, $rootScope, $state, $location, UserService) {
     var token = $cookies.get('uT');
     $http.defaults.headers.common['x-access-token'] = token;
+
+    $rootScope.$on('$stateChangeStart', function(event, toState) {
+      if (UserService.checkUser()) {
+        if (toState.templateUrl == '../partials/home.partial.html' || toState.templateUrl == '../partials/sm-signin.partial.html') {
+          $location.path('/documents');
+        }
+      }
+
+      if (!UserService.checkUser()) {
+        if (toState.templateUrl == '../partials/profile.partial.html' || toState.templateUrl == '../partials/editprofile.partial.html' || toState.templateUrl == '../partials/docs.partial.html' || toState.templateUrl == '../partials/editdoc.partial.html' || toState.templateUrl == '../partials/adddoc.partial.html') {
+          $location.path('/');
+        }
+      }
+    });
 }]);
