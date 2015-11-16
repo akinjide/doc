@@ -4,7 +4,8 @@ A front end for the document management system api, built using Angular JS and A
 ## IMPORTANT
 
 **You need node v0.8 or higher to run this program.**
-**You need gulp installed globally, RUN`npm install -g gulp`**
+
+**You need gulp installed globally, RUN `npm install -g gulp`**
 
 # Project Setup
 ## Run
