@@ -10,6 +10,10 @@ div(layout="row" ng-cloak ng-controller="userController")
           p #[a(ui-sref="adddocument") Add document]
           p #[a(ui-sref="profile" class="active") Profile]
           p(ng-click="logout()" class="doc__signout__button") Sign out
+          span.doc__social__icon 
+            a(href="https://github.com/andela-abankole/doc") 
+              i.fa.fa-github
+              md-tooltip View project on Github
   section(layout="row" flex class="doc__profile")
     md-content(flex="15" flex-sm="35" flex-gt-md="30" layout-padding)
       div(layout="column" layout-fill layout-align="top center")
@@ -35,7 +39,7 @@ div(layout="row" ng-cloak ng-controller="userController")
             p Email
             h4(ng-bind="vm.email")
         section(class="doc__profile__section" layout="row" layout-sm="column" layout-align="center center" layout-wrap)
-          md-button(class="doc__edit" ui-sref="editprofile") EDIT
+          md-button(class="doc__edit" ng-click="edit(vm._id)") EDIT
           md-button(class="doc__delete" ng-click="deleteUser(vm._id)") DELETE
           p By clicking #[b Delete], you agree to the termination of your #[b Profile] and all documents included with no way of restoring.
     md-content(flex flex-sm="5")

@@ -11,6 +11,10 @@ div(ng-controller="docController")
           p #[a(ui-sref="adddocument" class="active") Add document]
           p #[a(ui-sref="profile") Profile]
           p(ng-click="logout()" class="doc__signout__button") Sign out
+          span.doc__social__icon 
+            a(href="https://github.com/andela-abankole/doc") 
+              i.fa.fa-github
+              md-tooltip View project on Github
   section(layout="column" flex)
     md-content(layout-padding)
       div(layout="column" layout-fill layout-align="top center")
