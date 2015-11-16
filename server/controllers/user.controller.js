@@ -44,7 +44,7 @@ module.exports = {
           });
         }
       });
-    };
+    }
   },
 
   /**
@@ -109,7 +109,7 @@ module.exports = {
       else {
         return res.json({ statusCode : 200, status : 'OK', statusMessage : 'logout successful', response : response });
       }
-    })
+    });
   },
 
   /**
@@ -151,7 +151,7 @@ module.exports = {
           return res.json({ statusCode : 410, status : 'Gone', statusMessage : 'user does not exist', response : response });
         }
       }
-    })
+    });
   },
 
   /**
@@ -191,7 +191,7 @@ module.exports = {
       else {
         return res.json({ statusCode : 200, status : 'OK', statusMessage : 'user delete successful', response : response });
       }
-    })
+    });
   },
 
   /**
