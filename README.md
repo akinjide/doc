@@ -1,4 +1,5 @@
 [![Circle CI](https://circleci.com/gh/andela-abankole/doc/tree/master.svg?style=svg)](https://circleci.com/gh/andela-abankole/doc/tree/master)
+![Heroku](http://heroku-badge.herokuapp.com/?app=do-c&style=flat)
 # doc
 A front end for the document management system api, built using Angular JS and Angular Material Design, (visit [here](http://do-c.herokuapp.com) for more).
 
