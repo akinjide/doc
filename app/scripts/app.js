@@ -29,7 +29,6 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$locati
       templateUrl: "../partials/adddoc.partial.html",
     })
     .state('editdocument', {
-
       url: "/documents/edit_/_id=:dID",
       templateUrl: "../partials/editdoc.partial.html",
     })
