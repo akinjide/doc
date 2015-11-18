@@ -82,9 +82,12 @@ md-sidenav {
 }
 
 .doc__sidebar__button.md-button.md-fab {
-  color: @base-color;
-  background-color: #379C94;
+  color: @main-color;
+  background-color: transparent !important;
+  box-shadow: none !important;
   padding: 4px;
+  position: fixed;
+  z-index: 2;
   i.fa {
     font-size: @main-size + 11px;
   }
@@ -92,8 +95,9 @@ md-sidenav {
 
 .doc__sidebar__button.md-button.md-fab:not([disabled]).md-focused,
 .doc__sidebar__button.md-button.md-fab:not([disabled]):hover {
-  color: @base-color;
-  background-color: #379C94;
+  color: @main-color;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .doc__action__button.md-button.md-primary.md-fab,
@@ -107,6 +111,7 @@ md-sidenav {
   padding-left: @main-size + 28px;
   padding-right: @main-size + 8px;
   padding-bottom: @main-size + 28px;
+  margin-top: 56px;
   .md-long-text {
     h3 {
       font-family: @font-family;
@@ -128,6 +133,8 @@ md-sidenav {
   .doc__sidebar__form {
     padding: @main-size - 6px;
     margin-top: @main-size +  83px;
+    position: absolute;
+    z-index: 1;
     form {
       h1 {
         color: @color-7;
@@ -333,4 +340,20 @@ md-fab-trigger.align-with-text {
       color: @base-color;
     }
   }
+}
+
+// More Button
+md-fab-speed-dial.md-scale {
+  position: relative;
+  z-index: 1;
+}
+
+// Add document Button
+.doc__adddoc__button {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  margin: @main-size + 8px;
+  font-size: @main-size + 10px;
 }
