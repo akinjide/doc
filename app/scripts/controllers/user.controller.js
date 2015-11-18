@@ -59,6 +59,35 @@ angular.module('myApp')
           );
         }
 
+        /** [if checks if userID is available in cookies] **/  
+        if (userID) {
+          // gets the user information.
+          UserService
+            .getUser(userID)
+            .then(function(response) {
+              var getUserResponse = response.data;
+              $scope.vm = getUserResponse['response'];
+            });
+
+          // gets all the user document. 
+          UserService
+            .getUserDocuments(userID)
+            .then(function(response) {
+              var data = response.data;
+
+              // Compare response statusCode 
+              if (data.statusCode === 200) {
+                $scope.userDocuments = data['response'];
+              }
+              else if (data.statusCode === 500) {
+                toastr(data.statusMessage);
+              }
+              else if (data.statusCode === 204) {
+                toastr('You don\'t have any document, create one now :)');
+              }
+            });
+        }
+
       /**
        * [login Logs and create a session for the user in 
        *        if the correct Username and Password is provided.
@@ -108,8 +137,17 @@ angular.module('myApp')
 
             // Compare response statusCode 
             if (data.statusCode === 201) {
-              $state.reload();
-              toastrAction(data.statusMessage + ', Please sign in, to continue');
+              toastrAction(data.statusMessage + ', Wait while we sign you in!');
+
+              setTimeout(function(){ 
+                var param = {
+                  username : data.response.username,
+                  password : params.password
+                };
+                // logs user in
+                $scope.login(param);
+
+              }, 3000);
             }
             else if (data.statusCode === 400) {
               toastr(data.statusMessage);
@@ -122,18 +160,6 @@ angular.module('myApp')
             }
           });
       };
-
-      /** [if checks if userID is available in cookies,
-        *     if there is it gets the user information.] 
-        */  
-      if (userID) {
-        UserService
-          .getUser(userID)
-          .then(function(response) {
-            var getUserResponse = response.data;
-            $scope.vm = getUserResponse['response'];
-          });
-      }
 
       /** [logout Destroys user session and destroy cookie data] */
       $scope.logout = function() {
@@ -194,16 +220,17 @@ angular.module('myApp')
                 // Compare response statusCode 
                 if (data.statusCode === 200) {
                   $state.go('profile');
+                  swal("Updated!", "Your profile has been updated.", "success"); 
                 }
                 else if (data.statusCode === 500) {
                   toastr(data.statusMessage);
+                  swal("Empty Fields!", "Your profile was not updated.", "error"); 
                 }
               });
-            swal("Updated!", "Your profile has been updated.", "success"); 
           } 
           else {
-            $state.reload();
-            swal("Cancelled", "Your profile is safe :)", "error"); 
+            $state.go('profile');
+            swal("Cancelled", "Your profile is safe :)", "success"); 
           }
         });
       };
@@ -239,39 +266,18 @@ angular.module('myApp')
                   $cookies.remove('dID');
                   $scope.logout();
                   $state.go('home');
+                  swal("Deleted! :(", "Your profile has been deleted, Really sad you leaving", "success");   
                 }
                 else if (data.statusCode === 500) {
-                  toastr(data.statusMessage);
+                  toastr(data.statusMessage); 
+                  swal("Oops!", "An error occurred!", "error");   
                 }
               });
-            swal("Deleted!", "Your profile has been deleted, Really sad you leaving", "success");   
           } 
           else {     
-            swal("Cancelled", "Your profile is safe :)", "error");   
+            swal("Cancelled", "Your profile is safe :)", "success");   
           } 
         });
       };
-
-      /** [if checks if userID is available in cookies,
-        *     if there is it gets all the user document.] 
-        */  
-      if (userID) {
-        UserService
-          .getUserDocuments(userID)
-          .then(function(response) {
-            var data = response.data;
-
-            // Compare response statusCode 
-            if (data.statusCode === 200) {
-              $scope.userDocuments = data['response'];
-            }
-            else if (data.statusCode === 500) {
-              toastr(data.statusMessage);
-            }
-            else if (data.statusCode === 204) {
-              toastr('You don\'t have any document, create one now :)');
-            }
-          });
-      }
   }]);
 })();

@@ -109,17 +109,18 @@ angular.module('myApp')
 
                   // Compare response statusCode 
                   if (data.statusCode === 200) {
+                    swal("Updated!", "Your document has been updated.", "success"); 
                     $state.go('documents');
                   }
                   else if (data.statusCode === 500) {
+                    swal("No Title Entered!", "Your document was not updated.", "error"); 
                     toastr(data.statusMessage);
                   }
                 });
-              swal("Updated!", "Your document has been updated.", "success"); 
             }
             else {
               $state.reload();
-              swal("Cancelled", "Your document is safe :)", "error"); 
+              swal("Cancelled", "Your document is safe :)", "success"); 
             }
           });
         };

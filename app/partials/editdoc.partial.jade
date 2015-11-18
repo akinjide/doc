@@ -4,7 +4,7 @@ div(layout="row" ng-cloak ng-controller="docController")
       img(src="../images/logo.png")
     md-content(layout-padding ng-controller="LeftCtrl" flex class="doc__sidebar__content")
       div.doc__sidebar__close
-        md-button(ng-click="close()" class="md-primary") Close Sidenav Left
+        md-button(ng-click="close()" class="md-primary" hide-gt-sm) Close Sidenav Left
         md-content(show-gt-md class="doc__sidebar__content")
           p #[a(ui-sref="documents" class="active") View all document]
           p #[a(ui-sref="adddocument") Add document]

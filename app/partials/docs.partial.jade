@@ -4,7 +4,7 @@ div(layout="row" ng-cloak ng-controller="userController")
       img(src="../images/logo.png")
     md-content(layout-padding ng-controller="LeftCtrl" flex class="doc__sidebar__content")
       div.doc__sidebar__close
-        md-button(ng-click="close()" class="md-primary") Close Sidenav Left
+        md-button(ng-click="close()" class="md-primary" hide-gt-sm) Close Sidenav Left
         md-content(show-gt-md class="doc__sidebar__content")
           p #[a(ui-sref="documents" class="active") View all document]
           p #[a(ui-sref="adddocument") Add document]
@@ -17,7 +17,7 @@ div(layout="row" ng-cloak ng-controller="userController")
   section(layout="column" flex ng-controller="docController")
     md-content(layout-padding)
       div(layout="column" layout-fill layout-align="top center")
-        md-button(ng-click="toggleLeft()" class="md-fab md-primary doc__sidebar__button" aria-label="Menu" class="md-primary")
+        md-button(ng-click="toggleLeft()" class="md-fab md-primary doc__sidebar__button" aria-label="Menu" class="md-primary doc__sidebar__button")
           i.fa.fa-bars
       div(flex)
     md-content(layout="column" flex layout-padding class="md-inline-form doc__sidebar__form")
@@ -45,3 +45,7 @@ div(layout="row" ng-cloak ng-controller="userController")
           md-divider(style="margin: 12px 0px")
       div
         p(ng-if="!userDocuments") no document
+
+    md-button(ui-sref="adddocument" class="md-fab md-primary doc__adddoc__button" aria-label="Menu" class="md-primary")
+      i.fa.fa-pencil
+      md-tooltip(md-direction="top") Add
