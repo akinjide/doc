@@ -4,7 +4,7 @@ div(layout="row" ng-cloak ng-controller="userController")
       img(src="../images/logo.png")
     md-content(layout-padding ng-controller="LeftCtrl" flex class="doc__sidebar__content")
       div.doc__sidebar__close
-        md-button(ng-click="close()" class="md-primary") Close Sidenav Left
+        md-button(ng-click="close()" class="md-primary" hide-gt-sm) Close Sidenav Left
         md-content(show-gt-md class="doc__sidebar__content")
           p #[a(ui-sref="documents") View all document]
           p #[a(ui-sref="adddocument") Add document]
@@ -15,13 +15,13 @@ div(layout="row" ng-cloak ng-controller="userController")
               i.fa.fa-github
               md-tooltip View project on Github
   section(layout="row" flex class="doc__profile")
-    md-content(flex="15" flex-sm="35" flex-gt-md="30" layout-padding)
+    md-content(flex="15" flex-sm="15" flex-gt-md="30" layout-padding)
       div(layout="column" layout-fill layout-align="top center")
         md-button(ng-click="toggleLeft()" class="md-fab doc__sidebar__button" aria-label="Menu" class="md-primary")
           i.fa.fa-bars
       div(flex)
     div(flex-offset-md="20")
-    md-content(layout-padding flex-sm="60" flex-md="45" flex-gt-md="40" class="md-inline-form doc__sidebar__form")
+    md-content(layout-padding flex-sm="80" flex-md="45" flex-gt-md="40" class="md-inline-form doc__sidebar__form")
       form
         h1 {{ vm.name.first }} Profile
         div(layout layout-sm="column")
